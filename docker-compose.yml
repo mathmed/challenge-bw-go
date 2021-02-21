@@ -1,0 +1,10 @@
+version: "3"
+services:
+  app:
+    ports:
+      - ${PORT}:${PORT}
+    environment:
+      - GOROOT=/usr/local/go
+    build: .
+    volumes:
+      - .:/usr/local/go/src/challenge-bw-go
