@@ -8,3 +8,18 @@ services:
     build: .
     volumes:
       - .:/usr/local/go/src/challenge-bw-go
+    depends_on:
+      - database
+
+  database:
+    image: mysql:5.7
+    container_name: challenge-bw-go-database
+    volumes:
+      - ./docker/mysql:/var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_PASSWORD}
+      MYSQL_DATABASE: ${DB_DATABASE}
+      MYSQL_USER: ${DB_USERNAME}
+      MYSQL_PASSWORD: ${DB_PASSWORD}
+    ports:
+      - ${DB_PORT}:3306
