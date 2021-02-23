@@ -1,7 +1,7 @@
 package dtos
 
-// AddressDto .
-type AddressDto struct {
+// Address .
+type Address struct {
 	Street string `json:"street" binding:"required" validate:"required"`
 	Neighborhood string `json:"neighborhood" binding:"required" validate:"required"`
 	Number string `json:"number" binding:"required" validate:"required"`
