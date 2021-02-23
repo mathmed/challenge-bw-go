@@ -11,7 +11,7 @@ import (
 // CreatePaymentController .
 func CreatePaymentController(c *gin.Context) {
 
-	var createPaymentDto dtos.CreatePaymentDto
+	var createPaymentDto dtos.CreatePayment
 
 	if err := c.BindJSON(&createPaymentDto); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
@@ -22,6 +22,6 @@ func CreatePaymentController(c *gin.Context) {
 		return
 	}
 
-	createpayment.CreatePaymentUseCase(createPaymentDto)
+	createpayment.UseCase(createPaymentDto)
 
 }

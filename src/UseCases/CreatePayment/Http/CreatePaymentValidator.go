@@ -8,7 +8,7 @@ import (
 )
 
 // CreatePaymentValidator .
-func CreatePaymentValidator(payload dtos.CreatePaymentDto) bool {
+func CreatePaymentValidator(payload dtos.CreatePayment) bool {
 
 	var validate *validator.Validate
 	validate = validator.New()
