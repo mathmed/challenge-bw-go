@@ -22,14 +22,14 @@ func CreatePaymentController(c *gin.Context) {
 		return
 	}
 
-	err := createpayment.UseCase(createPaymentDto)
+	paymentID, err := createpayment.UseCase(createPaymentDto)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": "ok"})
+	c.JSON(http.StatusOK, gin.H{"data": gin.H{"payment_id" : paymentID}})
 
 	return
 }

@@ -15,7 +15,7 @@ func SavePayment(
 	paymentStatus uint,
 	userID uint,
 	deviceID uint,
-){
+) (uint) {
 	payment := models.Payment{
 		Amount: paymentData.Amount,
 		InitialCardNumber: paymentData.Number[0:4],
@@ -31,4 +31,6 @@ func SavePayment(
 	}
 
 	database.Instance.Create(&payment)
+
+	return payment.ID
 }

@@ -10,20 +10,20 @@ import (
 )
 
 // UseCase .
-func UseCase(payment dtos.CreatePayment) error {
+func UseCase(payment dtos.CreatePayment) (uint, error) {
 
 	var paymentStatus uint
 	hash, err := pagseguro.CreatePaymentPagSeguro(payment)
 	
 	if err != nil {
 		if (!errors.Is(err, &custom_errors.PaymentDeclinedError{})) {
-			return err
+			return 0, err
 		}
 		paymentStatus = 2
 	}
 	paymentStatus = 1
 	deviceID := repositories.SaveDevice(*payment.Device)
 	userID := repositories.SaveUser(*payment.User)
-	repositories.SavePayment(*payment.Card, hash, paymentStatus, userID, deviceID)
-	return nil
+	paymentID := repositories.SavePayment(*payment.Card, hash, paymentStatus, userID, deviceID)
+	return paymentID, nil
 }
