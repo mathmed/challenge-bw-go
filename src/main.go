@@ -6,7 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
-	"github.com/mathmed/challenge-bw-go/src/Routes"
+	routes "github.com/mathmed/challenge-bw-go/src/Routes"
 )
 
 func main() {
@@ -19,7 +19,7 @@ func main() {
 	}
 
 	r := gin.Default()
-	Routes.Setup(r)
+	routes.Setup(r)
 	r.Run(":" + port)
 	log.Printf("Listening on port %s", port)
 

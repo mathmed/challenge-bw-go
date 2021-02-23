@@ -1,5 +1,6 @@
-package Dtos
+package dtos
 
+// CardDto .
 type CardDto struct {
 	Cvv int `json:"cvv" binding:"required" validate:"required,numeric"`
 	Number string `json:"number" binding:"required" validate:"required,numeric"`

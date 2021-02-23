@@ -1,5 +1,6 @@
-package Dtos
+package dtos
 
+// AddressDto .
 type AddressDto struct {
 	Street string `json:"street" binding:"required" validate:"required"`
 	Neighborhood string `json:"neighborhood" binding:"required" validate:"required"`

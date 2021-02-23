@@ -1,13 +1,14 @@
-package Http
+package http
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/mathmed/challenge-bw-go/src/UseCases/CreatePayment"
+	createpayment "github.com/mathmed/challenge-bw-go/src/UseCases/CreatePayment"
 	dtos "github.com/mathmed/challenge-bw-go/src/UseCases/CreatePayment/Dtos"
 )
 
+// CreatePaymentController .
 func CreatePaymentController(c *gin.Context) {
 
 	var createPaymentDto dtos.CreatePaymentDto
@@ -21,6 +22,6 @@ func CreatePaymentController(c *gin.Context) {
 		return
 	}
 
-	CreatePayment.CreatePaymentUseCase(createPaymentDto)
+	createpayment.CreatePaymentUseCase(createPaymentDto)
 
 }

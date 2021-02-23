@@ -1,13 +1,14 @@
-package Http
+package http
 
 import (
 	"fmt"
 
 	"github.com/go-playground/validator/v10"
-	"github.com/mathmed/challenge-bw-go/src/UseCases/CreatePayment/Dtos"
+	dtos "github.com/mathmed/challenge-bw-go/src/UseCases/CreatePayment/Dtos"
 )
 
-func CreatePaymentValidator(payload Dtos.CreatePaymentDto) bool {
+// CreatePaymentValidator .
+func CreatePaymentValidator(payload dtos.CreatePaymentDto) bool {
 
 	var validate *validator.Validate
 	validate = validator.New()

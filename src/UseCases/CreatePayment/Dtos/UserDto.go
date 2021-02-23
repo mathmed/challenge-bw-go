@@ -1,5 +1,6 @@
-package Dtos
+package dtos
 
+// UserDto .
 type UserDto struct {
 	Name string `json:"name" binding:"required" validate:"required"`
 	Email string `json:"email" binding:"required" validate:"required,email"`
