@@ -9,6 +9,7 @@ import (
 	"os"
 	"strings"
 
+	errors "github.com/mathmed/challenge-bw-go/src/Infra/PagSeguro/Errors"
 	dtos "github.com/mathmed/challenge-bw-go/src/UseCases/CreatePayment/Dtos"
 )
 
@@ -47,9 +48,10 @@ type pagSeguroResponseData struct {
 }
 
 // CreatePaymentPagSeguro .
-func CreatePaymentPagSeguro(paymentData dtos.CreatePayment) string {
+func CreatePaymentPagSeguro(paymentData dtos.CreatePayment) (string, error){
 	
 	pagseguroPayload, err:= json.Marshal(createPayloadToSend(paymentData))
+	var pagseguroResponse pagSeguroResponseData
 
 	if err != nil {
 		fmt.Println(err)
@@ -64,24 +66,22 @@ func CreatePaymentPagSeguro(paymentData dtos.CreatePayment) string {
 	res, err := http.DefaultClient.Do(req)
 
 	if err != nil {
-		fmt.Println(err)
+		return "", &errors.ConnectToPagseguroError{}
 	}
-
-	var pagseguroResponse pagSeguroResponseData
 
 	err = json.NewDecoder(res.Body).Decode(&pagseguroResponse)
 	res.Body.Close()
 
 	if err != nil {
-		fmt.Println(err)
+		return "", &errors.PagSeguroResponseError{}
 	}
 
 	if pagseguroResponse.Status != "PAID" || 
 		pagseguroResponse.PaymentResponse.Code != "20000" {
-		fmt.Println("error")
+			return pagseguroResponse.ID, &errors.PaymentDeclinedError{}
 	}
 
-	return pagseguroResponse.ID
+	return pagseguroResponse.ID, nil
 }
 
 

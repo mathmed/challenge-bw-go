@@ -1,8 +1,6 @@
 package http
 
 import (
-	"fmt"
-
 	"github.com/go-playground/validator/v10"
 	dtos "github.com/mathmed/challenge-bw-go/src/UseCases/CreatePayment/Dtos"
 )
@@ -17,7 +15,6 @@ func CreatePaymentValidator(payload dtos.CreatePayment) bool {
 	if err != nil {
 
 		if _, ok := err.(*validator.InvalidValidationError); ok {
-			fmt.Println(err)
 			return false
 		}
 	}
