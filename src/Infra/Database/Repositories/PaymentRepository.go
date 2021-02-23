@@ -9,7 +9,13 @@ import (
 )
 
 // SavePayment .
-func SavePayment(paymentData dtos.Card, gatewayValidator string, paymentStatus uint) {
+func SavePayment(
+	paymentData dtos.Card,
+	gatewayValidator string,
+	paymentStatus uint,
+	userID uint,
+	deviceID uint,
+){
 	payment := models.Payment{
 		Amount: paymentData.Amount,
 		InitialCardNumber: paymentData.Number[0:4],
@@ -18,8 +24,11 @@ func SavePayment(paymentData dtos.Card, gatewayValidator string, paymentStatus u
 		GatewayValidator: gatewayValidator,
 		Parcels: paymentData.Parcels,
 		PaymentStatusID: paymentStatus,
+		UserID: userID,
+		DeviceID: deviceID,
 		CreatedAt: time.Now(),
 		UpdatedAt: time.Now(),
 	}
+
 	database.Instance.Create(&payment)
 }
