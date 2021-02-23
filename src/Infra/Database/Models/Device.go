@@ -10,7 +10,7 @@ type Device struct {
 	IP string
 	Device string
 	Platform string
-	Payments []Payment
+	Payment Payment
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }

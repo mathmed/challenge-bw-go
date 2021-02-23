@@ -10,7 +10,7 @@ type User struct {
 	Name string
 	Email string
 	Document string
-	BirthDate time.Time
+	BirthDate string `gorm:"type:date"`
 	Phone string
 	Street string
 	Number string
