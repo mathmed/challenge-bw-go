@@ -22,6 +22,8 @@ func UseCase(payment dtos.CreatePayment) error {
 		paymentStatus = 2
 	}
 	paymentStatus = 1
-	repositories.SavePayment(*payment.Card, hash, paymentStatus)
+	deviceID := repositories.SaveDevice(*payment.Device)
+	userID := repositories.SaveUser(*payment.User)
+	repositories.SavePayment(*payment.Card, hash, paymentStatus, userID, deviceID)
 	return nil
 }
