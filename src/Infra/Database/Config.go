@@ -26,6 +26,11 @@ func Config() {
 		panic(err.Error())
 	}
 
-	Instance.AutoMigrate(models.PaymentStatus{}, models.Payment{})
+	Instance.AutoMigrate(
+		models.PaymentStatus{},
+		models.User{},
+		models.Device{},
+		models.Payment{},
+	)
 
 }

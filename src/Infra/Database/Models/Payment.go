@@ -14,6 +14,8 @@ type Payment struct {
 	GatewayValidator string
 	Parcels int
 	PaymentStatusID uint
+	UserID uint
+	DeviceID uint
 	CreatedAt time.Time
 	UpdatedAt time.Time
 }
