@@ -15,7 +15,7 @@ func PaymentDetailsController(c *gin.Context) {
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
-			"status": gin.H{"message": err.Error(), "code": 400},
+			"status": gin.H{"message": "Payment id must be a integer value", "code": 400},
 		})
 		return
 	}
