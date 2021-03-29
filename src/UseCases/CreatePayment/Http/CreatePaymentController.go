@@ -14,7 +14,9 @@ func CreatePaymentController(c *gin.Context) {
 	var createPaymentDto dtos.CreatePayment
 
 	if err := c.BindJSON(&createPaymentDto); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status": gin.H{"message": err.Error(), "code": 400},
+		})
 		return
 	}
 
@@ -25,11 +27,16 @@ func CreatePaymentController(c *gin.Context) {
 	paymentID, err := createpayment.UseCase(createPaymentDto)
 
 	if err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{
+			"status": gin.H{"message": err.Error(), "code": 400},
+		})
 		return
 	}
 
-	c.JSON(http.StatusOK, gin.H{"data": gin.H{"payment_id" : paymentID}})
+	c.JSON(http.StatusOK, gin.H{
+		"status": gin.H{"message": "ok", "code": 200},
+		"data": gin.H{"payment_id" : paymentID},
+	})
 
 	return
 }
