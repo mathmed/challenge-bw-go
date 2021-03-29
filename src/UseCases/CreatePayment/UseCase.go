@@ -7,6 +7,7 @@ import (
 	pagseguro "github.com/mathmed/challenge-bw-go/src/Infra/PagSeguro"
 	custom_errors "github.com/mathmed/challenge-bw-go/src/Infra/PagSeguro/Errors"
 	dtos "github.com/mathmed/challenge-bw-go/src/UseCases/CreatePayment/Dtos"
+	enums "github.com/mathmed/challenge-bw-go/src/UseCases/CreatePayment/Enums"
 )
 
 // UseCase .
@@ -19,9 +20,10 @@ func UseCase(payment dtos.CreatePayment) (uint, error) {
 		if (!errors.Is(err, &custom_errors.PaymentDeclinedError{})) {
 			return 0, err
 		}
-		paymentStatus = 2
+		paymentStatus = enums.DECLINED;
 	}
-	paymentStatus = 1
+
+	paymentStatus = enums.RESERVED;
 	deviceID := repositories.SaveDevice(*payment.Device)
 	userID := repositories.SaveUser(*payment.User)
 	paymentID := repositories.SavePayment(*payment.Card, hash, paymentStatus, userID, deviceID)
