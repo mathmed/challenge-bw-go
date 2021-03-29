@@ -11,14 +11,14 @@ import (
 )
 
 // UseCase .
-func UseCase(payment dtos.CreatePayment) (uint, error) {
+func UseCase(payment dtos.CreatePayment) (*dtos.CreatePaymentResponse, error) {
 
 	var paymentStatus uint
 	hash, err := pagseguro.CreatePaymentPagSeguro(payment)
 	
 	if err != nil {
 		if (!errors.Is(err, &custom_errors.PaymentDeclinedError{})) {
-			return 0, err
+			return nil, err
 		}
 		paymentStatus = enums.DECLINED;
 	}
@@ -27,5 +27,10 @@ func UseCase(payment dtos.CreatePayment) (uint, error) {
 	deviceID := repositories.SaveDevice(*payment.Device)
 	userID := repositories.SaveUser(*payment.User)
 	paymentID := repositories.SavePayment(*payment.Card, hash, paymentStatus, userID, deviceID)
-	return paymentID, nil
+	return &dtos.CreatePaymentResponse{
+		PaymentID: paymentID,
+		GatewayHash: hash,
+		Amount: payment.Card.Amount,
+		Parcels: payment.Card.Parcels,
+	}, nil
 }

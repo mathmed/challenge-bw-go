@@ -24,7 +24,7 @@ func CreatePaymentController(c *gin.Context) {
 		return
 	}
 
-	paymentID, err := createpayment.UseCase(createPaymentDto)
+	paymentData, err := createpayment.UseCase(createPaymentDto)
 
 	if err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{
@@ -35,7 +35,12 @@ func CreatePaymentController(c *gin.Context) {
 
 	c.JSON(http.StatusOK, gin.H{
 		"status": gin.H{"message": "ok", "code": 200},
-		"data": gin.H{"payment_id" : paymentID},
+		"data": gin.H{
+			"payment_id" : paymentData.PaymentID,
+			"gateway_hash" : paymentData.GatewayHash,
+			"amount" : paymentData.Amount,
+			"parcels" : paymentData.Parcels,
+		},
 	})
 
 	return
